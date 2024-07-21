@@ -1,4 +1,4 @@
-package com.android.practice
+package com.android.practice.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,9 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.practice.R
 import com.android.practice.models.User
 
-class LateInitVsLazy : AppCompatActivity() {
+class LateInitVsLazyActivity : AppCompatActivity() {
 
     private lateinit var userLateInit : User
     private val userLazy : User by lazy{ User ("1","Ted")}
@@ -16,6 +17,8 @@ class LateInitVsLazy : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_late_init_lazy)
         systemBars()
 
         if(::userLateInit.isInitialized){
@@ -27,8 +30,6 @@ class LateInitVsLazy : AppCompatActivity() {
 
     private fun systemBars(){
 
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
